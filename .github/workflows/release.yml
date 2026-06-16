@@ -1,0 +1,48 @@
+name: Release
+
+# Publishes to the VS Code Marketplace when a version tag (e.g. v0.1.0) is pushed.
+# Requires a repository secret VSCE_PAT: an Azure DevOps Personal Access Token with
+# Marketplace > Manage scope, for the RogerBurtonpatel publisher.
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to attach the .vsix to the GitHub release
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check tag matches package.json version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG="$(node -p "require('./package.json').version")"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::Tag v$TAG does not match package.json version $PKG"
+            exit 1
+          fi
+
+      - run: npm test
+
+      - name: Package
+        run: npx @vscode/vsce package --out "latex-command-finder-${GITHUB_REF_NAME#v}.vsix"
+
+      - name: Publish to VS Code Marketplace
+        run: npx @vscode/vsce publish --packagePath "latex-command-finder-${GITHUB_REF_NAME#v}.vsix"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Attach .vsix to GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: latex-command-finder-*.vsix

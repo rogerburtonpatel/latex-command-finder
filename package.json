@@ -1,0 +1,81 @@
+{
+    "name": "latex-command-finder",
+    "displayName": "LaTeX Command Finder",
+    "description": "Hover over a Unicode character to see the LaTeX command that produces it. Works in any file (Rocq/Coq, Lean, Markdown, plain text, …).",
+    "version": "0.1.0",
+    "license": "MIT",
+    "publisher": "RogerBurtonpatel",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rogerburtonpatel/latex-command-finder.git"
+    },
+    "homepage": "https://github.com/rogerburtonpatel/latex-command-finder#readme",
+    "bugs": {
+        "url": "https://github.com/rogerburtonpatel/latex-command-finder/issues"
+    },
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "latex",
+        "unicode",
+        "hover",
+        "rocq",
+        "coq",
+        "lean",
+        "math"
+    ],
+    "qna": false,
+    "main": "./dist/extension.js",
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "contributes": {
+        "configuration": {
+            "title": "LaTeX Command Finder",
+            "properties": {
+                "latex-command-finder.languages": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [
+                        "*"
+                    ],
+                    "markdownDescription": "Language identifiers the hover is enabled for. Use `*` for all files. Examples: `coq`, `lean4`, `markdown`."
+                },
+                "latex-command-finder.showAliases": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Also show alternative LaTeX commands (e.g. \\to for →) in addition to the primary one."
+                },
+                "latex-command-finder.showRequires": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show which LaTeX package a command requires (e.g. amssymb), when known."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "build:data": "node scripts/build-data.mjs",
+        "copy-data": "node -e \"const fs=require('fs');fs.mkdirSync('dist',{recursive:true});fs.copyFileSync('src/latex-symbols.json','dist/latex-symbols.json')\"",
+        "compile": "tsc --noEmit",
+        "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && npm run copy-data",
+        "watch": "npm run copy-data && esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --watch",
+        "pretest": "esbuild test/*.test.ts --bundle --outdir=dist/test --external:vscode --external:node:* --format=cjs --platform=node && npm run copy-data",
+        "test": "node --test dist/test/*.js",
+        "package": "vsce package",
+        "vscode:prepublish": "npm run build"
+    },
+    "devDependencies": {
+        "@types/node": "^20.0.0",
+        "@types/vscode": "^1.75.0",
+        "@vscode/vsce": "^3.9.2",
+        "esbuild": "^0.21.0",
+        "typescript": "^5.4.5"
+    }
+}
