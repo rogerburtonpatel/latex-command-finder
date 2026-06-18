@@ -5,6 +5,7 @@
     "version": "0.1.0",
     "license": "MIT",
     "publisher": "combinator",
+    "icon": "logo.png",
     "repository": {
         "type": "git",
         "url": "https://github.com/rogerburtonpatel/latex-command-finder.git"
