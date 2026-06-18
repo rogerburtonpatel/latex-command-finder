@@ -4,7 +4,7 @@
     "description": "Hover over a Unicode character to see the LaTeX command that produces it. Works in any file (Rocq/Coq, Lean, Markdown, plain text, …).",
     "version": "0.1.0",
     "license": "MIT",
-    "publisher": "RogerBurtonpatel",
+    "publisher": "combinator",
     "repository": {
         "type": "git",
         "url": "https://github.com/rogerburtonpatel/latex-command-finder.git"

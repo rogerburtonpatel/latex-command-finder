@@ -1,4 +1,5 @@
 .vscode/**
+.claude/**
 .github/**
 src/**
 test/**
@@ -9,3 +10,5 @@ node_modules/**
 tsconfig.json
 **/*.map
 .gitignore
+marketplace-support.md
+package-lock.json
