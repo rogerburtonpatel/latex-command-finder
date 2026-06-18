@@ -2,7 +2,7 @@
     "name": "latex-command-finder",
     "displayName": "LaTeX Command Finder",
     "description": "Hover over a Unicode character to see the LaTeX command that produces it. Works in any file (Rocq/Coq, Lean, Markdown, plain text, …).",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "license": "MIT",
     "publisher": "combinator",
     "icon": "logo.png",
