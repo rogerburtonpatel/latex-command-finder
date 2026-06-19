@@ -1,12 +1,13 @@
 # latex-command-finder
-VSCode extension that shows the **LaTeX command** for a Unicode character on hover.
+Shows the **LaTeX command** for a Unicode character on hover.
 
 
-Hover over `→` and you get *"`→` — LaTeX: `\rightarrow` or `\to`"*; hover over `ℝ` and
-you get *"`ℝ` — LaTeX: `\mathbb{R}` · Requires `amssymb`"*. Works in any file, so it's handy
-for Rocq/Coq (`.v`), Lean, Agda, Markdown, or plain notes full of math symbols.
+Hovering over `→` gives *"`→` — LaTeX: `\rightarrow` or `\to`"*; hovering over
+`ℝ` gives *"`ℝ` — LaTeX: `\mathbb{R}` · Requires `amssymb`"*. (Package
+requirements are a toggleable setting). Works in any file, so it's handy for
+Rocq/Coq (`.v`), Lean, Agda, Markdown, or plain notes full of math symbols.
 
-Unlike input-method tables (e.g. Lean's `\all` → ∀), this reports the *real* LaTeX command
+Unlike input-method tables (e.g. Lean's `\all` → ∀), this reports the LaTeX command
 (`\forall`), falling back to the [`unicode-math`](https://ctan.org/pkg/unicode-math) command
 (tagged `(unicode-math)`) when no classic command exists.
 
